@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/helpers.dart';
 import '../../models/product_model.dart';
+import '../../providers/category_provider.dart';
 import '../../providers/product_provider.dart';
 import '../common/topbar.dart';
 
@@ -122,27 +123,35 @@ class _ProductInfoCard extends StatelessWidget {
               child: const Center(child: Icon(Icons.inventory_2_outlined, size: 60, color: AppColors.primary)),
             ),
           const SizedBox(height: 20),
-          Text(product.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
-          const SizedBox(height: 8),
+              Text(product.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
+              const SizedBox(height: 12),
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: AppColors.accentLight,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(product.categoryId,
-                    style: const TextStyle(fontSize: 12, color: AppColors.accent, fontWeight: FontWeight.w600)),
+                  Consumer<CategoryProvider>(
+                    builder: (context, catProvider, _) {
+                      final results = catProvider.allCategories.where((c) => c.id == product.categoryId);
+                      final cat = results.isNotEmpty ? results.first : null;
+                      return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: AppColors.accentLight,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          cat != null ? (cat as dynamic).name : 'Unknown Category',
+                          style: const TextStyle(fontSize: 12, color: AppColors.accent, fontWeight: FontWeight.w700),
+                        ),
+                      );
+                    },
               ),
-              const SizedBox(width: 8),
+                  const SizedBox(width: 12),
               StatusBadge(status: product.status ? 'active' : 'inactive'),
             ],
           ),
           const SizedBox(height: 16),
-          const Text('Description', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textSecondary)),
-          const SizedBox(height: 6),
-          Text(product.description, style: const TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.5)),
+          const Text('Description', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+          const SizedBox(height: 8),
+          Text(product.description, style: const TextStyle(fontSize: 15, color: AppColors.textSecondary, height: 1.6)),
           const Divider(height: 32, color: AppColors.cardBorder),
           _DetailRow(label: 'Product ID', value: product.id),
           const SizedBox(height: 8),

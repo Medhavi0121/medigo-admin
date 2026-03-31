@@ -249,9 +249,17 @@ class _ProductRow extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: Text(product.categoryId,
-                style: const TextStyle(
-                    fontSize: 13, color: AppColors.textSecondary)),
+            child: Consumer<CategoryProvider>(
+              builder: (context, catProvider, _) {
+                final results = catProvider.allCategories.where((c) => c.id == product.categoryId);
+                final cat = results.isNotEmpty ? results.first : null;
+                return Text(
+                  cat != null ? cat.name : 'Unknown',
+                  style: const TextStyle(
+                      fontSize: 13, color: AppColors.textSecondary),
+                );
+              },
+            ),
           ),
           Expanded(
             child: Text(

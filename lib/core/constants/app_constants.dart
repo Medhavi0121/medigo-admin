@@ -1,9 +1,9 @@
 class AppConstants {
   // Firestore Collections
-  static const String usersCollection = 'Users';
-  static const String categoriesCollection = 'Categories';
-  static const String productsCollection = 'Products';
-  static const String bookingsCollection = 'Bookings';
+  static const String usersCollection = 'users';
+  static const String categoriesCollection = 'categories';
+  static const String productsCollection = 'products';
+  static const String bookingsCollection = 'bookings';
 
   // Storage Paths
   static const String categoryImagesPath = 'categories/';
