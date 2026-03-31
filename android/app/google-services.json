@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "887260997035",
+    "project_id": "medigo-211e8",
+    "storage_bucket": "medigo-211e8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887260997035:android:3db7c5e0b344d69b949eee",
+        "android_client_info": {
+          "package_name": "com.java.medigo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz74F_6DI28XzutITz3zSqJk7UfQsof8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887260997035:android:68db717146a07d1a949eee",
+        "android_client_info": {
+          "package_name": "com.java.medigo_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz74F_6DI28XzutITz3zSqJk7UfQsof8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887260997035:android:ac5250ba11153552949eee",
+        "android_client_info": {
+          "package_name": "com.java.medigoadmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz74F_6DI28XzutITz3zSqJk7UfQsof8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
