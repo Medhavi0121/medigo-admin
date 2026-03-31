@@ -23,7 +23,7 @@ class StatsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final bgColor = color.withOpacity(0.08);
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),

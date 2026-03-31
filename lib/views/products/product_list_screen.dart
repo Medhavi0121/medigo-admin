@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/date_formatter.dart';
 import '../../core/utils/helpers.dart';
+import '../../core/widgets/error_widget.dart';
 import '../../core/widgets/loading_widget.dart';
 import '../../providers/category_provider.dart';
 import '../../providers/product_provider.dart';
@@ -123,11 +124,15 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     Expanded(
                       child: provider.isLoading
                           ? const LoadingWidget()
-                          : provider.products.isEmpty
-                              ? const EmptyWidget(
-                                  message: 'No products found',
-                                  icon: Icons.inventory_2_outlined)
-                              : ListView.separated(
+                          : provider.error != null
+                              ? AppErrorWidget(
+                                  message: provider.error!,
+                                  onRetry: provider.streamProducts)
+                              : provider.products.isEmpty
+                                  ? const EmptyWidget(
+                                      message: 'No products found',
+                                      icon: Icons.inventory_2_outlined)
+                                  : ListView.separated(
                                   itemCount: provider.products.length,
                                   separatorBuilder: (_, __) => const Divider(
                                       height: 1, color: AppColors.cardBorder),
@@ -214,7 +219,7 @@ class _ProductRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Row(
         children: [
           Expanded(

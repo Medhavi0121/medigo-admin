@@ -40,6 +40,14 @@ class ProductModel {
   factory ProductModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
 
+    // Handle both single string and list of strings for imageUrl
+    List<String> images = [];
+    if (data['imageUrl'] is String) {
+      images = [data['imageUrl']];
+    } else if (data['imageUrl'] is List) {
+      images = List<String>.from(data['imageUrl']);
+    }
+
     return ProductModel(
       id: doc.id,
       name: data['name'] ?? '',
@@ -47,7 +55,7 @@ class ProductModel {
       price: (data['price'] ?? 0).toDouble(),
       categoryId: data['categoryId'] ?? '',
 
-      imageUrls: List<String>.from(data['imageUrl'] ?? []), // ✅ FIX
+      imageUrls: images,
       patientCount: data['patientCount'] ?? 0,
       dailyPatientCount: data['dailyPatientCount'] ?? 0,
       experience: data['experience'] ?? 0,
