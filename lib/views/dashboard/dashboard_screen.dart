@@ -93,8 +93,14 @@ class DashboardScreen extends StatelessWidget {
                 child: const Text('View All'),
               ),
               padding: EdgeInsets.zero,
-              child: _RecentBookingsTable(
-                bookings: bookings.bookings.take(5).toList(),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(minWidth: 800),
+                  child: _RecentBookingsTable(
+                    bookings: bookings.bookings.take(5).toList(),
+                  ),
+                ),
               ),
             ),
           ],

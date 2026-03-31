@@ -26,11 +26,12 @@ class AdminTopBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
-          if (onMenuTap != null)
-            IconButton(
-              icon: const Icon(Icons.menu, color: AppColors.textSecondary),
-              onPressed: onMenuTap,
-            ),
+          IconButton(
+            icon: const Icon(Icons.menu, color: AppColors.textSecondary),
+            onPressed: onMenuTap,
+            tooltip: 'Toggle Sidebar',
+          ),
+          const SizedBox(width: 8),
           // Breadcrumb
           _Breadcrumb(location: GoRouterState.of(context).matchedLocation),
           const Spacer(),
@@ -212,25 +213,25 @@ class StatusBadge extends StatelessWidget {
 
   Color get _bg {
     switch (status.toLowerCase()) {
-      case 'pending': return const Color(0xFFFFF8E1);
-      case 'confirmed': return const Color(0xFFE3F2FD);
-      case 'completed': return const Color(0xFFE8F5E9);
-      case 'cancelled': return const Color(0xFFFFEBEE);
-      case 'active': return const Color(0xFFE8F5E9);
-      case 'inactive': return const Color(0xFFFFEBEE);
-      default: return const Color(0xFFF5F5F5);
+      case 'pending': return AppColors.warningLight;
+      case 'confirmed': return AppColors.primarySurface;
+      case 'completed': return AppColors.successLight;
+      case 'cancelled': return AppColors.errorLight;
+      case 'active': return AppColors.successLight;
+      case 'inactive': return AppColors.errorLight;
+      default: return AppColors.surfaceVariant;
     }
   }
 
   Color get _fg {
     switch (status.toLowerCase()) {
-      case 'pending': return const Color(0xFFF57F17);
-      case 'confirmed': return const Color(0xFF1565C0);
-      case 'completed': return const Color(0xFF2E7D32);
-      case 'cancelled': return const Color(0xFFC62828);
-      case 'active': return const Color(0xFF2E7D32);
-      case 'inactive': return const Color(0xFFC62828);
-      default: return const Color(0xFF616161);
+      case 'pending': return AppColors.warning;
+      case 'confirmed': return AppColors.primary;
+      case 'completed': return AppColors.success;
+      case 'cancelled': return AppColors.error;
+      case 'active': return AppColors.success;
+      case 'inactive': return AppColors.error;
+      default: return AppColors.textMuted;
     }
   }
 

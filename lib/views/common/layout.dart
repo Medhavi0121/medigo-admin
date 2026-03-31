@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/constants/app_constants.dart';
 import 'sidebar.dart';
+import 'topbar.dart';
 
 class AdminLayout extends StatefulWidget {
   final Widget child;
@@ -31,36 +32,11 @@ class _AdminLayoutState extends State<AdminLayout> {
           Expanded(
             child: Column(
               children: [
-                // Collapse toggle bar
-                if (!isTablet)
-                  Container(
-                    height: 32,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFF8FAFC),
-                      border: Border(
-                          bottom: BorderSide(color: Color(0xFFE2E8F0))),
-                    ),
-                    child: Row(
-                      children: [
-                        TextButton.icon(
-                          onPressed: () => setState(
-                              () => _sidebarCollapsed = !_sidebarCollapsed),
-                          icon: Icon(
-                            _sidebarCollapsed
-                                ? Icons.chevron_right
-                                : Icons.chevron_left,
-                            size: 16,
-                            color: const Color(0xFF90A4AE),
-                          ),
-                          label: Text(
-                            _sidebarCollapsed ? 'Expand' : 'Collapse',
-                            style: const TextStyle(
-                                fontSize: 11, color: Color(0xFF90A4AE)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                AdminTopBar(
+                  title: 'Medigo Admin',
+                  onMenuTap: () => setState(
+                      () => _sidebarCollapsed = !_sidebarCollapsed),
+                ),
                 Expanded(child: widget.child),
               ],
             ),

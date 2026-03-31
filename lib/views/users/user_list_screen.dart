@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/helpers.dart';
+import '../../core/widgets/error_widget.dart';
 import '../../core/widgets/loading_widget.dart';
 import '../../providers/user_provider.dart';
 import '../common/topbar.dart';
@@ -74,12 +75,18 @@ class _UserListScreenState extends State<UserListScreen> {
                   children: [
                     _TableHeader(),
                     Expanded(
-                      child: provider.users.isEmpty
-                          ? const EmptyWidget(
-                              message: 'No users found',
-                              icon: Icons.people_outline)
-                          : ListView.separated(
-                              itemCount: provider.users.length,
+                      child: provider.isLoading
+                          ? const LoadingWidget()
+                          : provider.error != null
+                              ? AppErrorWidget(
+                                  message: provider.error!,
+                                  onRetry: provider.streamUsers)
+                              : provider.users.isEmpty
+                                  ? const EmptyWidget(
+                                      message: 'No users found',
+                                      icon: Icons.people_outline)
+                                  : ListView.separated(
+                                      itemCount: provider.users.length,
                               separatorBuilder: (_, __) => const Divider(
                                   height: 1, color: AppColors.cardBorder),
                               itemBuilder: (ctx, i) => _UserRow(
@@ -155,7 +162,7 @@ class _UserRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Row(
         children: [
           Expanded(

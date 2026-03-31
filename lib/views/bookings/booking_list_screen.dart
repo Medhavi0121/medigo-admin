@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/date_formatter.dart';
 import '../../core/utils/helpers.dart';
+import '../../core/widgets/error_widget.dart';
 import '../../core/widgets/loading_widget.dart';
 import '../../providers/booking_provider.dart';
 import '../common/topbar.dart';
@@ -135,11 +136,15 @@ class _BookingListScreenState extends State<BookingListScreen> {
                     Expanded(
                       child: provider.isLoading
                           ? const LoadingWidget()
-                          : provider.bookings.isEmpty
-                              ? const EmptyWidget(
-                                  message: 'No bookings found',
-                                  icon: Icons.calendar_month_outlined)
-                              : ListView.separated(
+                          : provider.error != null
+                              ? AppErrorWidget(
+                                  message: provider.error!,
+                                  onRetry: provider.streamBookings)
+                              : provider.bookings.isEmpty
+                                  ? const EmptyWidget(
+                                      message: 'No bookings found',
+                                      icon: Icons.calendar_month_outlined)
+                                  : ListView.separated(
                                   itemCount: provider.bookings.length,
                                   separatorBuilder: (_, __) => const Divider(height: 1, color: AppColors.cardBorder),
                                   itemBuilder: (ctx, i) {
@@ -273,7 +278,7 @@ class _BookingRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Row(
         children: [
           SizedBox(
